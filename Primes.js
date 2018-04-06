@@ -5,14 +5,14 @@
  * @param {Number} y    number to test
  * @return {Boolean}    true if prime, false otherwise
  */
-function isPrime(y){
+function isPrime(input){
   // special case for 1, always false
-  if( y === 1){
+  if( input === 1){
     return false;
   }
   // sufficient to test from 2 to sqrt(y)
-  for( let i = 2; i <= Math.sqrt(y); i++ ){
-    if( y % i === 0) {
+  for( let i = 2; i <= Math.sqrt(input); i++ ){
+    if( input % i === 0) {
       // not a prime, return immediately
       return false;
     }
