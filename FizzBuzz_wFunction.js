@@ -39,6 +39,12 @@ function isFizzBuzz_x_y(x,num1,num2){
   }
 }
 
+function makeFizzBuzzFunc (num1,num2){
+  var extraStep = function(x){
+    //stuff goes here?? 
+  }
+}
+
 for (x = 1; x <= 100; x++){
   console.log (isFizzBuzz_x_y(x,3,7))
 }
