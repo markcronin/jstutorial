@@ -1,74 +1,74 @@
 var w = [" and ","one","two","three","four","five",
             "six","seven","eight","nine","ten",
             "eleven","twelve","thir","teen","fif",
-            "twen","eigh","ty","ty-","hundred","thousand, "]
+            "twen","eigh","ty","ty-","hundred","thousand, ","for"]
 
 var rand = Math.floor(Math.random() * 1000000);
 console.log (rand)
 
-var leadingZeros = function(x){
-    output =""
-    for (y = 1; y <= x; y++){
-        output += "0"
-    }
-    return output
-}
-
 function digit_array(num){
   var string = num.toString();
   var length = string.length;
-  var fullString = leadingZeros(6-length) + string;
-  var output = []
+  var fullString = function(x){
+      output ="";
+      for (y = 1; y <= x; y++){
+        output += "0";}
+        return output;} (6-length) + string;
+  var output = [];
   for (x = 0; x < 6; x++){
-    output.push(Number(fullString.charAt(x)))
+    output.push(Number(fullString.charAt(x)));
   }
-  return output
+  return output;
 }
 
 var arr = digit_array(rand)
+//var arr = [1,0,1,0,0,2];
 
 function makeNumber(array){
   if (arr[0] > 0){
-    var x = arr[0]
-    var output6 = prints_1_9(x) + "-" + w[20]
+    var x = arr[0];
+    var output6 = prints_1_9(arr[0]) + "-" + w[20];
   } else {
-    output6 = ""
+    output6 = "";
   }
   if (arr[1] > 0){
-    var x = arr[1]
-    var output5 = decide_and_tens(arr[0]) + prints_tens(x) + decide_ty(arr[2])
+    var x = arr[1];
+    var output5 = decide_and_tens(arr[0]) + prints_tens(arr[1],arr[2]) + decide_ty(arr[1],arr[2]);
   } else {
-    output5 = ""
+    output5 = "";
   }
-  if (arr[2] > 0){
-    var x = arr[2]
-    var output4 = decide_and_singles(arr[1],arr[0]) + prints_1_9(x) + " " + w[21]
+  if ((arr[2] > 0) && (arr[1] != 1)){
+    var x = arr[2];
+    var output4 = decide_and_singles(arr[1],arr[0]) + prints_1_9(arr[2]) + " " + w[21];
+  } else if (arr[0] + arr[1] + arr[2] === 0){
+    var output4 = "";
   } else {
-    output4 = w[21]
+    output4 = " " + w[21];
   }
   if (arr[3] > 0){
-    var x = arr[3]
-    var output3 = prints_1_9(x) + "-" + w[20]
+    var x = arr[3];
+    var output3 = prints_1_9(arr[3]) + "-" + w[20];
   } else {
-    output3 = ""
+    output3 = "";
   }
   if (arr[4] > 0){
-    var x = arr[4]
-    var output2 = decide_and_tens(arr[3]) + prints_tens(x) + decide_ty(arr[5])
+    var x = arr[4];
+    var output2 = decide_and_tens(arr[3]) + prints_tens(arr[4],arr[5]) + decide_ty(arr[4],arr[5])
   } else {
-    output2 = ""
+    output2 = "";
   }
-  if (arr[5] > 0){
-    var x = arr[5]
-    var output1 = decide_and_singles(arr[4],arr[3]) + prints_1_9(x)
+  if ((arr[5] > 0) && arr[4] != 1){
+    var x = arr[5];
+    var output1 = decide_and_singles2(arr[4],arr[3]) + prints_1_9(arr[5]);
   } else {
-    output1 = ""
+    output1 = "";
   }
-  return output6+output5+output4+output3+output2+output1
+  return output6+output5+output4+output3+output2+output1;
 }
 
-var answer = makeNumber (arr)
-console.log (answer)
+console.log (arr);
+var answer = makeNumber (arr);
+console.log (answer);
 
 function prints_1_9(x){
   if (x === 1){
@@ -92,13 +92,27 @@ function prints_1_9(x){
   }
 }
 
-function prints_tens(x){
-    if (x === 2){
+function prints_tens(x,y){
+    if (x === 1){
+      if (y === 0){
+        return w[10];
+      } else if (y === 1){
+        return w[11];
+      } else if ( y === 2){
+        return w[12];
+      } else if (y === 3){
+        return w[13] + w[14];
+      } else if (y === 5){
+        return w[15] + w[14];
+      } else {
+        return prints_1_9(y) + w[14];
+      }
+  } else if (x === 2){
     return w[16];
   } else if (x === 3){
     return w[13];
   } else if (x === 4){
-    return w[4];
+    return w[22];
   } else if (x === 5){
     return w[15];
   } else if (x === 6){
@@ -112,28 +126,40 @@ function prints_tens(x){
   }
 }
 
-function decide_ty(arr_num){
-  if (arr_num === 0){
-    return w[18]
+function decide_ty(arr_num1,arr_num2){
+  if (arr_num1 === 1){
+    return "";
+  } else if (arr_num2 === 0){
+    return w[18];
   } else {
-    return w[19]
+    return w[19];
   }
 }
 
 function decide_and_tens(arr_num){
   if (arr_num === 0){
-    return ""
+    return "";
   } else {
-    return w[0]
+    return w[0];
   }
 }
 
 function decide_and_singles(arr_num1,arr_num2){
   if ((arr_num1 === 0) && (arr_num2 === 0)){
-    return ""
+    return "";
   } else if (arr_num1 === 0){
-    return w[0]
+    return w[0];
   } else {
-    return ""
+    return "";
+  }
+}
+
+function decide_and_singles2(arr_num1,arr_num2){
+  if ((arr_num1 === 0) && (arr_num2 === 0)){
+    return w[0];
+  } else if (arr_num1 === 0){
+    return w[0];
+  } else {
+    return "";
   }
 }
