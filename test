@@ -1,5 +1,0 @@
-function injectValue(value) {
-  return function(callback) {
-    return callback(null, value);
-  };
-}
