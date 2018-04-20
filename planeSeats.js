@@ -159,42 +159,31 @@ function countSeatClasses(plane){
     }
   })
   let seatCount = {first: first, business: business, economy: economy};
-  return seatCount
+  return seatCount;
 }
-
-//let seatCount = countSeatClasses(planeMedium)
-//console.log (seatCount)
-
 
 //creates a copy of a specified plane
 //adds the value 'available' to each seat and sets it to 'true'
 function UnassignAllSeats(plane){
   let emptyPlane = plane.map(function(seat){
-    seat.available = true
-    return seat
+    seat.available = true;
+    return seat;
   })
-  return emptyPlane
+  return emptyPlane;
 }
-
-//let emptyLarge = UnassignAllSeats(planeLarge)
-//console.log (emptyLarge)
-
-
 
 //adds the value 'seatClass' to each passenger object
 //finds the corresponding seatClass from the current plane
 function getPassClass(currentSeat,currentPlane){
-  for (let x = 0; x < currentSeat.length; x++){
-    for (let y = 0; y < currentPlane.length; y++){
-      if (currentSeat[x].seatNumber === currentPlane[y].seatNumber){
-        currentSeat[x].seatClass = currentPlane[y].seatClass;
-        break;
+  currentSeat.forEach (function(seat,x){
+    currentPlane.forEach(function(newSeat,y){
+      if (seat.seatNumber === newSeat.seatNumber){
+        seat.seatClass = newSeat.seatClass;
       }
-    }
-  }
-  return currentSeat
+    })
+  })
+  return currentSeat;
 }
-
 
 //checks to see whether the new plane is large enough to fit all passengers in their current class
 function checkIfPossible(currentSeat,oldPlane,newPlane){
@@ -207,39 +196,32 @@ function checkIfPossible(currentSeat,oldPlane,newPlane){
   } else if (passClass.economy > planeClass.economy){
     return false;
   } else {
-    return true
+    return true;
   }
 }
-
-//console.log (checkIfPossible(oldSeatAssignment,planeMedium,planeSmall))
-
 
 function reassignSeats(currentSeat,oldPlane,newPlane){
   let possible = checkIfPossible(currentSeat,oldPlane,newPlane)
   if (possible === true){
+    var output = [];
     var passengerClass = getPassClass(currentSeat,oldPlane)
     var emptyNewPlane = UnassignAllSeats(newPlane)
     for (x = 0; x < passengerClass.length; x++){
       for (y = 0; y < emptyNewPlane.length; y++){
         if ((passengerClass[x].seatClass === emptyNewPlane[y].seatClass)
-        && (emptyNewPlane[x].available === true)){
-          emptyNewPlane[y].passengerName = passengerClass[x].passengerName
-          emptyNewPlane[y].available = false
+        && (emptyNewPlane[y].available === true)){
+          output.push({passengerName: passengerClass[x].passengerName, seatNumber: emptyNewPlane[y].seatNumber});
+          emptyNewPlane[y].available = false;
+          break;
         }
       }
     }
   } else {
-    console.log ("New plane does not meet requirements")
-    return false
+    console.log ("New plane does not meet requirements");
+    return false;
   }
-  return emptyNewPlane
+  return output;
 }
 
-let test = reassignSeats(oldSeatAssignment,planeMedium,planeLarge)
-console.log (test)
-
-//reassignSeats(oldSeatAssignment,planeMedium,planeLarge)
-
-//let passengerClass = getPassClass(oldSeatAssignment,planeMedium)
-//let array = countSeatClasses(passengerClass)
-//console.log (array)
+let test = reassignSeats(oldSeatAssignment,planeMedium,planeLarge);
+console.log (test);
