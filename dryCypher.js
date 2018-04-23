@@ -20,12 +20,6 @@ function alterCharacter(message, encodeKey, encode) {
   if (encode) {
     c = message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97);
     i = (c < 127) ? c : c - 95;
-    // escape \ and " characters
-    if ( i === 34 ) {
-      return '\\\"';
-    } else if ( i === 92 ) {
-      return '\\\\';
-    }
   } else {
     c = message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97);
     i = (c > 31) ? c : c + 95;
