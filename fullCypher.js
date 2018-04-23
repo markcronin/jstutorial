@@ -31,11 +31,7 @@ function decodeCharacter(message, encodeKey){
   let i = ((message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97) > 31) ?
            (message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97)) :
            (message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97)) + 95);
-  if ( i === 34 ) {
-    return '\\\"';
-  } else {
-    return String.fromCharCode(i);
-  }
+  return String.fromCharCode(i);
 }
 
 //encodes a given string using the keyword
@@ -62,3 +58,8 @@ function decode(keyword,message){
   }
   return output;
 }
+
+
+console.log (encode("b", "This is a new message!"))
+
+console.log(decode("b", "Uijt!jt!b!ofx!nfttbhf\""))
