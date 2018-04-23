@@ -12,41 +12,53 @@ function setupKey(keyword,message){
   return encodeKey;
 }
 
-console.log (setupKey("dogs","thisisamessage"))
+//uses the first letter of the encode key to change
+// the first letter of the message string
+function encodeCharacter(message, encodeKey){
+  let i = ((message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97) < 127) ?
+           (message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97)) :
+           (message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97)) - 95);
+  if ( i === 34 ) {
+    return '\\\"';
+  } else {
+    return String.fromCharCode(i);
+  }
+}
 
+//uses the first letter of the decode key to change
+// the first letter of the message string
+function decodeCharacter(message, encodeKey){
+  let i = ((message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97) > 31) ?
+           (message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97)) :
+           (message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97)) + 95);
+  if ( i === 34 ) {
+    return '\\\"';
+  } else {
+    return String.fromCharCode(i);
+  }
+}
 
 //encodes a given string using the keyword
 //Message can include captail and lower case, also numbers and punctuation
 function encode(keyword,message){
   var encodeKey = setupKey(keyword,message)
-  var output = ""
+  var output = "";
   while (message.length > 0){
-    let i = ((message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97) < 127) ?
-             (message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97)) :
-             (message.charCodeAt(0) + (encodeKey.charCodeAt(0) - 97)) - 95);
-    output += String.fromCharCode(i);
+    output += (encodeCharacter(message, encodeKey));
     encodeKey = encodeKey.slice(1);
     message = message.slice(1);
   }
   return output;
 }
-
-console.log (encode("pineapple","The quick brown fox jumped over the lazy dog, is a common sentence used as input to test programmes like this."))
-
 
 //takes the encoded message and decodes it using the keyword
 function decode(keyword,message){
   var encodeKey = setupKey(keyword,message)
-  var output = ""
+  var output = "";
   while (message.length > 0){
-    let i = ((message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97) > 31) ?
-             (message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97)) :
-             (message.charCodeAt(0) - (encodeKey.charCodeAt(0) - 97)) + 95);
-    output += String.fromCharCode(i);
+    output += (decodeCharacter(message, encodeKey));
     encodeKey = encodeKey.slice(1);
     message = message.slice(1);
   }
   return output;
 }
-
-console.log (decode("pineapple", `cpr$q%xno/j sw}/qs((wym to$~~rv $wp${i(} s~r0/q!$a/rzq|w{$st} i}kr$u#to$p{-mn % $$w-xe#$+t`))
