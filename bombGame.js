@@ -54,7 +54,7 @@ function createScoreArray(n) {
 
 const numPlayers = 4;
 const globalIntervalPerPlayer = [15, 40];
-const userChances = [50, 40, 30, 20, 10, 7, 5];
+const userChances = [60, 50, 40, 30, 20, 15, 10];
 
 const globalTimer = Math.round(
   Math.random() * (globalIntervalPerPlayer[1] - globalIntervalPerPlayer[0]) +
