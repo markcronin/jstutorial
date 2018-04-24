@@ -1,3 +1,5 @@
+//let input = "rgb(255,255,255)"
+
 // takes hex colour input and converts it to RBG
 // eg "#ffc031" returns "rgb(255,192,49)"
 function toDec(input){
@@ -14,10 +16,16 @@ function toHex(input){
   input = input.slice(4);
   input = input.slice(0,-1);
   input = input.split(",");
-  return "#" + ((Number(input[0])).toString(16) +
-                (Number(input[1])).toString(16) +
-                (Number(input[2])).toString(16)).toUpperCase();
+  let r = Number(input[0]).toString(16).split("");
+  let g = Number(input[1]).toString(16).split("");
+  let b = Number(input[2]).toString(16).split("");
+  if ( r[0] === r[1] && g[0] === g[1] && b[0] === b[1] ) {
+    return ("#" + r[0]  + g[0] + b[0]);
+  } else {
+    return ("#" + r[0] + r[1] + g[0] + g[1] + b[0] + b[1]);
+  }
 }
+
 
 // determines the direction of conversion
 // based on the lenght on the input string
