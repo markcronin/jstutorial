@@ -13,9 +13,10 @@ function toDec(input){
 // takes RGB colour values as input and converts it to hex colour
 // eg "rgb(255,192,49)" returns "#ffc031"
 function toHex(input){
-  input = input.slice(4);
-  input = input.slice(0,-1);
-  input = input.split(",");
+  input = input.match((/\d+/g));
+//  input = input.slice(4);
+//  input = input.slice(0,-1);
+//  input = input.split(",");
   let r = Number(input[0]).toString(16).split("");
   let g = Number(input[1]).toString(16).split("");
   let b = Number(input[2]).toString(16).split("");
